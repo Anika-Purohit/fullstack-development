@@ -1,23 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
 
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import ListEmployeeComponent from "./components/ListEmployeeComponent";
+import { createBrowserRouter, RouterProvider , Outlet } from "react-router-dom";
+import UpdateEmployee from "./components/UpdateEmployee";
+import AddEmployee from "./components/AddEmployee";
+import ViewEmployee from "./components/ViewEmployee";
+import Body from "./components/Body";
+
+const appRouter = () =>{
+  createBrowserRouter([{
+    path:"/",
+    element:<ListEmployeeComponent/>,
+    children:[
+      {
+        path:"/update",
+        element:<UpdateEmployee/>,
+      },
+      {
+       path:"/add",
+       element:<AddEmployee/>, 
+      },
+      {
+      path:"/view",
+      element:<ViewEmployee/>,
+      }
+    ]
+  }])
+}
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <RouterProvider router={appRouter}>
+      <Header/>
+       <Outlet/>
+       <Footer/>
+      </RouterProvider>
+
     </div>
   );
 }
